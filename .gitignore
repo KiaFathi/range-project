@@ -1,3 +1,6 @@
+local_dev.sh
+data/store.json
+
 # Logs
 logs
 *.log

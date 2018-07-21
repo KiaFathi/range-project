@@ -1,6 +1,6 @@
-import fetch from 'isomorphic-unfetch';
+const fetch = require('isomorphic-unfetch');
 
-export default class MountainProject {
+module.exports = class MountainProject {
   constructor(key) {
     if (!key) {
       throw new Error('API key required for MountainProject');
@@ -31,4 +31,4 @@ export default class MountainProject {
     const data = await res.json();
     return data;
   }
-}
+};
