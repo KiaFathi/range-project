@@ -1,0 +1,24 @@
+{
+  "name": "range-project",
+  "version": "1.0.0",
+  "description": "Using mountain project's api to aggregate data across friends",
+  "main": "index.js",
+  "dependencies": {
+    "isomorphic-unfetch": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KiaFathi/range-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KiaFathi/range-project/issues"
+  },
+  "homepage": "https://github.com/KiaFathi/range-project#readme"
+}
