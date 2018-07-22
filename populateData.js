@@ -1,6 +1,6 @@
 /**
  * Script to retrieve and format mtn project data
- * @param {string[]} MTN_PROJ_USER_IDS - ids to fetch data for
+ * @param {string} MTN_PROJ_USER_IDS - comma separated ids to fetch data for
  * @param {string} MTN_PROJ_KEY - api key
  *
  * @returns writes truncates and writes data to TARGET_FILE
