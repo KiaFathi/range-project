@@ -1,9 +1,10 @@
-/*
+/**
  * Script to retrieve and format mtn project data
- * Usage:
- * MTN_PROJ_USER_IDS={ID,ID,ID} MTN_PROJ_KEY={KEY} node retrieveData.js
+ * @param {string[]} MTN_PROJ_USER_IDS - ids to fetch data for
+ * @param {string} MTN_PROJ_KEY - api key
+ *
+ * @returns writes store.json to TARGET_DIR
  */
-
 const fs = require('fs');
 const path = require('path');
 const MountainProject = require('./clients/MountainProject');
@@ -15,8 +16,20 @@ const TARGET_DIR = path.join(__dirname, 'data');
 const mtnProj = new MountainProject(MTN_PROJ_KEY);
 
 const store = {
-  users: {},
-  routes: {},
+  users: {
+    /*
+     * [id]: {
+     *   ticks: [
+     *   ]
+     * }
+     */
+  },
+  routes: {
+    /*
+     * [id] : {
+     * }
+     */
+  },
 };
 
 // fetch all users
@@ -31,8 +44,9 @@ Promise.all(users.map(id => mtnProj.getUser(id)))
   })
   .then(() => Promise.all(users.map(id => mtnProj.getTicks(id))))
   .then(userTicks => {
+    // Extend users object with tickData
     users.forEach((id, idx) => {
-      store.users[id].ticks = userTicks[idx];
+      store.users[id] = { ...store.users[id], ...userTicks[idx] };
     });
     const uniqueRoutes = userTicks.reduce((acc, tickData) => {
       const routeIds = tickData.ticks.map(tick => tick.routeId);
@@ -44,8 +58,12 @@ Promise.all(users.map(id => mtnProj.getUser(id)))
     return [...uniqueRoutes];
   })
   .then(routeIds => mtnProj.getRoutes(routeIds))
-  .then(routes => {
-    store.routes = routes;
+  .then(data => {
+    // Store routes keyed on route id
+    store.routes = data.routes.reduce(
+      (acc, route) => ({ ...acc, [route.id]: route }),
+      {},
+    );
   })
   .then(() => {
     fs.writeFileSync(
