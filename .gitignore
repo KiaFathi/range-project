@@ -1,5 +1,6 @@
 local_dev.sh
 data/store.json
+src/userData.json
 
 # Logs
 logs
