@@ -6,7 +6,7 @@ Using [mountain project's api](https://www.mountainproject.com/data) to aggregat
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-You can view a deployed instance of this application [here](https://range-project.netflify.com).
+You can view a deployed instance of this application [here](https://range-project.netlify.com).
 
 ## Retrieving initial data
 
