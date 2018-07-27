@@ -48,7 +48,7 @@ Promise.all(users.map(id => mtnProj.getUser(id)))
   })
   .then(() => Promise.all(users.map(id => mtnProj.getTicks(id))))
   .then(userTicks => {
-    // Extend users object with tickData
+    // Extend user objects with tickData
     users.forEach((id, idx) => {
       store.users[id] = { ...store.users[id], ...userTicks[idx] };
     });
