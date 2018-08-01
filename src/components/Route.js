@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Item, ImageGroup } from 'semantic-ui-react';
 
 const Route = props => (
@@ -17,5 +18,13 @@ const Route = props => (
     </Item.Content>
   </Item>
 );
+
+Route.propTypes = {
+  imgSmall: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  rating: PropTypes.string.isRequired,
+  completedBadges: PropTypes.arrayOf(PropTypes.element).isRequired,
+};
 
 export default Route;

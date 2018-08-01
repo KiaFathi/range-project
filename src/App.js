@@ -22,19 +22,20 @@ class App extends Component {
   static propTypes = {
     users: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
+    ticks: PropTypes.object.isRequired,
   };
   static defaultProps = {
     users: {},
     routes: {},
     ticks: {},
   };
-  toggleUserFilter = id => {
+  toggleUserFilter = userId => {
     const { filteredUsers } = this.state;
 
-    if (filteredUsers.has(id)) {
-      filteredUsers.delete(id);
+    if (filteredUsers.has(userId)) {
+      filteredUsers.delete(userId);
     } else {
-      filteredUsers.add(id);
+      filteredUsers.add(userId);
     }
 
     this.setState({
@@ -57,34 +58,40 @@ class App extends Component {
           <Image src={logo} className="App-logo" alt="logo" />
           Range Project
         </Header>
-        <Header as="h3" textAlign="center">
+        <Header as="h2" textAlign="center">
           Friends
         </Header>
         <Container>
           <Card.Group centered>
-            {Object.keys(users).map(id => (
+            {Object.keys(users).map(userId => (
               <User
-                onClick={() => this.toggleUserFilter(id)}
-                key={id}
-                {...users[id]}
+                active={!filteredUsers.has(userId)}
+                onClick={() => this.toggleUserFilter(userId)}
+                key={userId}
+                {...users[userId]}
               />
             ))}
           </Card.Group>
         </Container>
-        <Header as="h3" textAlign="center">
+        <Header as="h2" textAlign="center">
           Completed Routes
         </Header>
         <Container>
           <Item.Group divided>
-            {[...filteredRouteIds].map(id => (
+            {[...filteredRouteIds].map(routeId => (
               <Route
-                key={id}
+                key={routeId}
                 completedBadges={Object.keys(users)
-                  .filter(userId => ticks[userId].hasOwnProperty(id))
+                  .filter(
+                    userId =>
+                      !filteredUsers.has(userId) &&
+                      ticks[userId].hasOwnProperty(routeId),
+                  )
+                  .sort(userId => filteredUsers.has(userId))
                   .map(userId => (
                     <Image circular key={userId} src={users[userId].avatar} />
                   ))}
-                {...routes[id]}
+                {...routes[routeId]}
               />
             ))}
           </Item.Group>
