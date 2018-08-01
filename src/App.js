@@ -23,6 +23,10 @@ class App extends Component {
     users: PropTypes.object.isRequired,
     routes: PropTypes.object.isRequired,
   };
+  static defaultProps = {
+    users: {},
+    routes: {},
+  };
   toggleUserFilter = id => {
     const { filteredUsers } = this.state;
 
