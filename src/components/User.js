@@ -21,7 +21,7 @@ const User = props => (
 User.propTypes = {
   name: PropTypes.string.isRequired,
   average: PropTypes.string.isRequired,
-  hardest: PropTypes.func.isRequired,
+  hardest: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   avatar: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
