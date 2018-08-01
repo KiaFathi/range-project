@@ -25,6 +25,16 @@ const store = {
      * }
      */
   },
+  ticks: {
+    /*
+     * [userId]: {
+     *   [routeId]: tick{},
+     *   ...
+     * },
+     * ...
+     *
+     */
+  },
   routes: {
     /*
      * [id] : {
@@ -51,6 +61,13 @@ Promise.all(users.map(id => mtnProj.getUser(id)))
     // Extend user objects with tickData
     users.forEach((id, idx) => {
       store.users[id] = { ...store.users[id], ...userTicks[idx] };
+      store.ticks[id] = userTicks[idx].ticks.reduce(
+        (ticksById, tick) => ({
+          ...ticksById,
+          [tick.routeId]: tick,
+        }),
+        {},
+      );
     });
     const uniqueRoutes = userTicks.reduce((acc, tickData) => {
       const routeIds = tickData.ticks.map(tick => tick.routeId);

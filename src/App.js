@@ -26,6 +26,7 @@ class App extends Component {
   static defaultProps = {
     users: {},
     routes: {},
+    ticks: {},
   };
   toggleUserFilter = id => {
     const { filteredUsers } = this.state;
@@ -41,21 +42,8 @@ class App extends Component {
     });
   };
   render() {
-    const { users, routes } = this.props;
+    const { users, routes, ticks } = this.props;
     const { filteredUsers } = this.state;
-
-    // TODO: Do this at data fetching layer instead
-    // Key Tick by user ID
-    const ticks = Object.keys(users).reduce((acc, userId) => {
-      acc[userId] = users[userId].ticks.reduce(
-        (ticksById, tick) => ({
-          ...ticksById,
-          [tick.routeId]: tick,
-        }),
-        {},
-      );
-      return acc;
-    }, {});
 
     const filteredRouteIds = Object.keys(users)
       .filter(userId => !filteredUsers.has(userId))
